@@ -1,0 +1,23 @@
+#post #select-file {
+  width: 90%;
+  margin: 15px auto;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  text-align: center;
+  background: #fff;
+  overflow: hidden;
+  cursor: pointer;
+}
+#post #select-file .text {
+  min-height: 140px;
+  line-height: 140px;
+  font-size: 24px;
+  font-weight: bold;
+}
+#post #select-file img {
+  display: block;
+  width: 100%;
+}
+#post i {
+  margin-right: 0.5em;
+}

@@ -1,0 +1,51 @@
+- var canonicalUrl = _config.root_url + _helper.canonicalUrl(_req.url)
+- var pageTitle        = _helper.pageTitle(pageTitle, title)
+- var pageDescription = _helper.pageDescription(description)
+
+meta(charset='utf-8')
+title= pageTitle
+meta(name='description', content= pageDescription)
+meta(name='keywords', content='wishmatch')
+meta(name='robots', content='index,follow')
+
+meta(name='viewport', content='width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no')
+meta(name='format-detection', content='telephone=no')
+
+meta(property='og:site_name', content='WishMatch')
+if (room && room.title)
+    meta(property='og:title', content= room.title)
+else
+    meta(property='og:title', content= pageTitle)
+if (room && room.content)
+    meta(property='og:description', content= room.content)
+else
+    meta(property='og:description', content= pageDescription)
+meta(property='og:type', content='website')
+meta(property='og:url', content= canonicalUrl)
+- if(room && room.imagePath)
+    meta(property='og:image', content!= _helper.image.imageUrl(room.imagePath, 512, 512, 'crop'))
+- else
+    meta(property='og:image', content='https://s3-ap-northeast-1.amazonaws.com/wishmatch/WishMatchLogo.png')
+
+meta(property='fb:app_id', content= _config.facebook.app_id)
+meta(property='fb:page_id', content= _config.facebook.page_id)
+
+meta(name='twitter:site', content='@' + _config.twitter.account_id)
+meta(name='twitter:domain', content='wishmatch')
+meta(name='twitter:title', content= pageTitle)
+meta(name='twitter:description',content= pageDescription)
+- if(room && room.imagePath)
+    meta(name='twitter:card', content='summary_large_image')
+    meta(name='twitter:image:src', content!= _helper.image.imageUrl(room.imagePath))
+- else if(rooms && rooms.length > 0)
+    meta(name='twitter:card', content='gallery')
+    - each room, index in rooms
+        meta(name='twitter:image'+ index +':src', content!= _helper.image.imageUrl(room.ogImagePath, 300, 300, 'crop'))
+        - if(index > 4) break
+- else
+    meta(name='twitter:card', content='summary_large_image')
+    meta(name='twitter:image:src', content='https://s3-ap-northeast-1.amazonaws.com/wishmatch/WishMatchLogo.png')
+meta(name='apple-mobile-web-app-title', content='WishMatch')
+meta(name='csrf-token' content=_csrf)
+meta(name='sessionUserId' content=_req.session.userId)
+link(rel="canonical", href= canonicalUrl)

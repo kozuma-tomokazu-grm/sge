@@ -1,0 +1,16 @@
+doctype html
+html
+    head
+        include ../common/css
+        include ../common/js
+    body(id='login')
+        h1#fb-welcome
+        div#container
+            include ../common/header
+            div.container
+                block content
+            include ../common/footer
+        script(src='/javascripts/socketio/socket.js')
+        // script(src='/javascripts/lib/facebook_login.js')
+        // script(src='/javascripts/lib/redirect.js')
+        include ../partial/analytics

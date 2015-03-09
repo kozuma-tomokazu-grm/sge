@@ -1,0 +1,45 @@
+{
+    "TableName": "tagRelationPost",
+    "AttributeDefinitions": [
+        {
+            "AttributeName": "tagName",
+            "AttributeType": "S"
+        },
+        {
+            "AttributeName": "postId",
+            "AttributeType": "N"
+        }
+    ],
+    "KeySchema": [
+        {
+            "AttributeName": "tagName",
+            "KeyType": "HASH"
+        },
+        {
+            "AttributeName": "postId",
+            "KeyType": "RANGE"
+        }
+    ],
+    "GlobalSecondaryIndexes": [
+        {
+            "IndexName": "postIdIndex",
+            "KeySchema": [
+                {
+                    "AttributeName": "postId",
+                    "KeyType": "HASH"
+                }
+            ],
+            "Projection": {
+                "ProjectionType": "ALL"
+            },
+            "ProvisionedThroughput": {
+                "ReadCapacityUnits": 1,
+                "WriteCapacityUnits": 1
+            }
+        }
+    ],
+    "ProvisionedThroughput": {
+        "ReadCapacityUnits": 1,
+        "WriteCapacityUnits": 1
+    }
+}

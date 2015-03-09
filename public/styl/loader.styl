@@ -1,0 +1,162 @@
+/*** loader ***/
+.loader {
+  position: relative
+  margin: 10px auto
+  padding: 0 10px
+  width: 20px
+  height:20px
+}
+
+.loader .wBall {
+  position: absolute
+  width: 19px
+  height: 19px
+  opacity: 0
+  -webkit-transform: rotate(225deg)
+  -webkit-animation: orbit 5.5s infinite
+  transform: rotate(225deg)
+  animation: orbit 5.5s infinite
+}
+
+.loader .wBall .wInnerBall{
+  position: absolute
+  width: 3px
+  height: 3px
+  background: #000
+  left:0px
+  top:0px
+  -webkit-border-radius: 3px
+  border-radius: 3px
+}
+
+.loader #wBall_1 {
+  -webkit-animation-delay: 1.2s
+  animation-delay: 1.2s
+}
+
+.loader #wBall_2 {
+  -webkit-animation-delay: 0.24s
+  animation-delay: 0.24s
+}
+
+.loader #wBall_3 {
+  -webkit-animation-delay: 0.48s
+  animation-delay: 0.48s
+}
+
+.loader #wBall_4 {
+  -webkit-animation-delay: 0.72s
+  animation-delay: 0.72s
+}
+
+.loader #wBall_5 {
+  -webkit-animation-delay: 0.96s
+  animation-delay: 0.96s
+}
+
+@-webkit-keyframes orbit {
+  0% {
+    opacity: 1
+    z-index:99
+    -webkit-transform: rotate(180deg)
+    -webkit-animation-timing-function: ease-out
+  }
+  
+  7% {
+    opacity: 1
+    -webkit-transform: rotate(300deg)
+    -webkit-animation-timing-function: linear
+    -webkit-origin:0%
+  }
+  
+  30% {
+    opacity: 1
+    -webkit-transform:rotate(410deg)
+    -webkit-animation-timing-function: ease-in-out
+    -webkit-origin:7%
+  }
+  
+  39% {
+    opacity: 1
+    -webkit-transform: rotate(645deg)
+    -webkit-animation-timing-function: linear
+    -webkit-origin:30%
+  }
+  
+  70% {
+    opacity: 1
+    -webkit-transform: rotate(770deg)
+    -webkit-animation-timing-function: ease-out
+    -webkit-origin:39%
+  }
+  
+  75% {
+    opacity: 1
+    -webkit-transform: rotate(900deg)
+    -webkit-animation-timing-function: ease-out
+    -webkit-origin:70%
+  }
+  
+  76% {
+    opacity: 0
+    -webkit-transform:rotate(900deg)
+  }
+  
+  100% {
+    opacity: 0
+    -webkit-transform: rotate(900deg)
+  }
+}
+@keyframes orbit {
+  0% {
+    opacity: 1
+    z-index:99
+    transform: rotate(180deg)
+    animation-timing-function: ease-out
+  }
+  
+  7% {
+    opacity: 1
+    transform: rotate(300deg)
+    animation-timing-function: linear
+    origin:0%
+  }
+  
+  30% {
+    opacity: 1
+    transform:rotate(410deg)
+    animation-timing-function: ease-in-out
+    origin:7%
+  }
+  
+  39% {
+    opacity: 1
+    transform: rotate(645deg)
+    animation-timing-function: linear
+    origin:30%
+  }
+  
+  70% {
+    opacity: 1
+    transform: rotate(770deg)
+    animation-timing-function: ease-out
+    origin:39%
+  }
+  
+  75% {
+    opacity: 1
+    transform: rotate(900deg)
+    animation-timing-function: ease-out
+    origin:70%
+  }
+  
+  76% {
+    opacity: 0
+    transform:rotate(900deg)
+  }
+  
+  100% {
+    opacity: 0
+    transform: rotate(900deg)
+  }
+}

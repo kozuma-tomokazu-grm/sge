@@ -1,0 +1,54 @@
+extends ../layouts/base
+
+block content
+    form#post.postform(action='/post/upload', method='POST', enctype='multipart/form-data', style='width:90%;max-width:600px;margin:0 auto')
+        input(type='hidden' name='_csrf', value=_csrf, required)
+        - each image in imageList
+            div.col-xs-6.col-sm-3.col-md-3.col-lg-3
+                input(type='radio' name='select' value=image, style='display: inline-block;')
+                img.blockcenter(alt='beach' height='130' width='130' src='/images/share/' + image, style='display: inline-block;')
+        input#upload-file.none(type='file', name='image', accept='image/*')
+
+        div#select-file
+            img.none(src='', alt)
+            div.text
+                i.icon.icon_l.icon_photo_kuro
+                | 写真を選択
+
+        p
+            label(for='amount') 金額:
+            input#amount(type='text', name='money', readonly='readonly', style='border: 0; color: #f6931f; font-weight: bold;')
+            span 円 [手数料金無料]
+        br
+        div#slider
+        br
+        p(style='color:red')= validTitle
+        p 願い事:(私は〜します!)
+            input.full(type='text', name='title', class='required', maxlength='45')
+        p (72文字で行きたい所、やりたいこと、欲しいもの書き込んで叶えてもらおう!)
+        br
+        p 日付:
+            input(type='text', name='date', id='datetimepicker')
+        br
+        p 時間:
+            select(name='hour')
+                each hour in hourList
+                    option(value='#{hour.time}') #{hour.time}時間
+        br
+        p 場所:
+            input.full(type='text', name='place')
+        br
+        p 住所:
+            input.full(type='text', name='address')
+        br
+        p URL: (例:お店のURL、欲しいもののURL)
+            input.full(type='text', name='url')
+        br
+        p カテゴリー:
+            input.full(type='text', name='tag', value='' data-role='tagsinput')
+        br
+        p 内容:
+        div
+            textarea#textarea.full(name='content', rows='4', cols='14', placeholder='例、ここ一緒にいってくれたら~円払います！私のヒマな時間を~円で売ります！')
+        input#submit.submit(type='submit', value='投稿する')
+    script(data-main='/javascripts/main/post.js', src='/javascripts/lib/requirejs.js')

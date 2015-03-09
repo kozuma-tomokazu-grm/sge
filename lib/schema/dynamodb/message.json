@@ -1,0 +1,49 @@
+{
+    "TableName": "message",
+    "AttributeDefinitions": [
+        {
+            "AttributeName": "messageId",
+            "AttributeType": "N"
+        },
+        {
+            "AttributeName": "messageGroupId",
+            "AttributeType": "N"
+        },
+        {
+            "AttributeName": "updateDatetime",
+            "AttributeType": "N"
+        }
+    ],
+    "KeySchema": [
+        {
+            "AttributeName": "messageId",
+            "KeyType": "HASH"
+        }
+    ],
+    "GlobalSecondaryIndexes": [
+        {
+            "IndexName": "messageGroupId-updateDatetime-index",
+            "KeySchema": [
+                {
+                    "AttributeName": "messageGroupId",
+                    "KeyType": "HASH"
+                },
+                {
+                    "AttributeName": "updateDatetime",
+                    "KeyType": "RANGE"
+                }
+            ],
+            "Projection": {
+                "ProjectionType": "ALL"
+            },
+            "ProvisionedThroughput": {
+                "ReadCapacityUnits": 1,
+                "WriteCapacityUnits": 1
+            }
+        }
+    ],
+    "ProvisionedThroughput": {
+        "ReadCapacityUnits": 1,
+        "WriteCapacityUnits": 1
+    }
+}

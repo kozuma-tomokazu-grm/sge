@@ -1,0 +1,91 @@
+extends ../layouts/base
+
+block content
+    - if(socialModule)
+        include partial/_social_module
+    div#room.room.gp.mm(data-room-id=room.postId,style='width:90%;max-width:600px;margin:0 auto')
+        if(room.imagePath)
+            div.room-img
+                img(src=_helper.image.imageUrl(room.imagePath), alt)
+                div.like-out
+                    div.gp.js-room-like.like-count(data-room_id=room.postId,class=(room.likeActive) ? "active": "", style='cursor: pointer;')
+                        // div.heart.fl ❤
+                        div.heart.fl Wish
+                        div.count.fl= likeCount
+        div.meta
+            div.user-image
+                a(href=_helper.user.createUserUrl(userMap[room.userId].userId))
+                    img.user-image-l(src!=userMap[room.userId].imagePath, width=50, height=50, alt)
+            div.description
+                div.gp
+                    div.fl
+                        a(href=_helper.user.createUserUrl(userMap[room.userId].userId))
+                            = userMap[room.userId].username
+                    div.fr.mrs
+                        = _helper.time.createDisplayTime(room.insertDatetime)
+                p.title
+                    = room.title
+                - if (room.place)
+                    p 場所:
+                        = room.place
+                - if (room.date)
+                    p 日付:
+                        = _helper.time.createDisplayTime(room.date)
+                - if (room.hour && room.hour != 0)
+                    p 時間:
+                        = room.hour
+                            span 時間
+                - if (room.money)
+                    p 金額:
+                        = room.money
+                        span 円
+                - if (room.address)
+                    p 住所:
+                        a(href='http://maps.google.co.jp/maps?q='+room.address, target='_blank')
+                            = room.address
+                        //= room.address
+                - if (room.url)
+                    p URL:
+                        a(href= room.url, target='_blank')
+                            = room.url
+                p.comment
+                    = room.content
+
+            - if(room.userId === _req.session.userId)
+                form.edit-form(action='/post/edit/'+room.postId, method='get')
+                    input.submit(type='submit', value='編集')
+                form.delete-form(action='/room/delete', method='post')
+                    input(type='hidden', name='_csrf', value=_csrf, required)
+                    input(type='hidden', name='post_id', value=room.postId, required)
+                    input.submit.js-delete(type='submit', value='削除')
+            - else
+                form.delete-form(action='/room/report', method='post')
+                    input(type='hidden', name='_csrf', value=_csrf, required)
+                    input(type='hidden', name='post_id', value=room.postId, required)
+                    input(type='hidden', name='userId', value=room.userId, required)
+                    input.submit.js-delete(type='submit', value='通報')
+        - if(room.userId !== _req.session.userId)
+            a(href='/message/search/' + room.userId, style='color:white')
+                button.btn.btn-sm.btn-success.full プライベートチャット
+        div.comments
+            // - if(room.money && room.money != '0')
+                form(action='/purchase' method='post')
+                    script(src='https://checkout.webpay.jp/v2/' class='webpay-button' data-key='test_public_9c86pFdBY9RDbSb5i5dNI7fl' data-lang='ja' data-text='このチケットを購入する' data-submit-text='代金' + room.money + '円をカードで支払う' data-partial='true')
+            div.post
+                include partial/comment_form
+
+            ul.comments-list
+                - each comment in commentList
+                    include partial/comment
+                include partial/template/comment
+            div.more-btn.js-more-comment 次のコメントを表示
+        - if(likeList.length > 0)
+            div.like-users
+                h3 Wishしたユーザー
+                ul
+                    - each like in likeList
+                        - if(userMap[like.userId])
+                            li
+                                a(href=_helper.user.createUserUrl(like.userId))
+                                    img.user-image-l(src=userMap[like.userId].imagePath, alt=userMap[like.userId].name)
+        script(data-main='/javascripts/main/room.js', src='/javascripts/lib/requirejs.js')

@@ -1,0 +1,19 @@
+li(data-comment-id=comment.commentId)
+    div.user-image
+        a(href=_helper.user.createUserUrl(comment.userId))
+            img.user-image-m(src=userMap[comment.userId].imagePath, width=30, height=30, alt)
+    div.content
+        div.comment
+            a(href=_helper.user.createUserUrl(comment.userId))
+                = userMap[comment.userId].username
+            p
+                = comment.content
+
+            - if(comment.userId === _req.session.userId)
+                form.delete-form(action='/room/delete_comment', method='post')
+                    input(type='hidden', name='_csrf', value=_csrf, required)
+                    input(type='hidden', name='comment_id', value=comment.commentId, required)
+                    input.submit.comment-delete.js-delete(type='submit', value='削除')
+            div.gp
+                div.fr.mrs.time
+                    = _helper.time.createDisplayTime(comment.insertDatetime)

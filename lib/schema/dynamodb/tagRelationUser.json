@@ -1,0 +1,45 @@
+{
+    "TableName": "tagRelationUser",
+    "AttributeDefinitions": [
+        {
+            "AttributeName": "tagName",
+            "AttributeType": "S"
+        },
+        {
+            "AttributeName": "userId",
+            "AttributeType": "N"
+        }
+    ],
+    "KeySchema": [
+        {
+            "AttributeName": "tagName",
+            "KeyType": "HASH"
+        },
+        {
+            "AttributeName": "userId",
+            "KeyType": "RANGE"
+        }
+    ],
+    "GlobalSecondaryIndexes": [
+        {
+            "IndexName": "userIdIndex",
+            "KeySchema": [
+                {
+                    "AttributeName": "userId",
+                    "KeyType": "HASH"
+                }
+            ],
+            "Projection": {
+                "ProjectionType": "ALL"
+            },
+            "ProvisionedThroughput": {
+                "ReadCapacityUnits": 1,
+                "WriteCapacityUnits": 1
+            }
+        }
+    ],
+    "ProvisionedThroughput": {
+        "ReadCapacityUnits": 1,
+        "WriteCapacityUnits": 1
+    }
+}

@@ -1,0 +1,20 @@
+extends ../layouts/login
+
+block content
+    div.login(style='height: 680px', data-vide-bg='/movies/wishmatch_opening1.mp4', data-vide-options='posterType: png, loop: true, autoplay: true, muted: false, position: 0% 0%, resizing: true')
+        img.logo(src='/images/common/logo-b-new.png')
+
+        ul.connect_services
+            li.facebook
+                a(href='/auth/facebook', alt='rooming sign in')
+                    img(src='/images/FacebookLoginButton.png')
+                    //signin facebookログイン
+                    //i f
+                //br
+                //span facebook
+            //li.twitter
+                a(href='/auth/twitter')
+                    i t
+                br
+                span twitter
+    script(src='/javascripts/lib/jquery.vide.js')

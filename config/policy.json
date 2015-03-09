@@ -1,0 +1,9 @@
+{
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": ["dynamodb:Scan", "dynamodb:DescribeTable"],
+      "Resource": "arn:aws:dynamodb:ap-northeast-1:410632012134:table/message"
+    }
+  ]
+}

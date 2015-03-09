@@ -1,0 +1,49 @@
+{
+    "TableName": "userRelationShip",
+    "AttributeDefinitions": [
+        {
+            "AttributeName": "followUserId",
+            "AttributeType": "N"
+        },
+        {
+            "AttributeName": "followedUserId",
+            "AttributeType": "N"
+        }
+    ],
+    "KeySchema": [
+        {
+            "AttributeName": "followUserId",
+            "KeyType": "HASH"
+        },
+        {
+            "AttributeName": "followedUserId",
+            "KeyType": "RANGE"
+        }
+    ],
+    "GlobalSecondaryIndexes": [
+        {
+            "IndexName": "followedUserIdIndex",
+            "KeySchema": [
+                {
+                    "AttributeName": "followedUserId",
+                    "KeyType": "HASH"
+                },
+                {
+                    "AttributeName": "followUserId",
+                    "KeyType": "RANGE"
+                }
+            ],
+            "Projection": {
+                "ProjectionType": "ALL"
+            },
+            "ProvisionedThroughput": {
+                "ReadCapacityUnits": 1,
+                "WriteCapacityUnits": 1
+            }
+        }
+    ],
+    "ProvisionedThroughput": {
+        "ReadCapacityUnits": 1,
+        "WriteCapacityUnits": 1
+    }
+}

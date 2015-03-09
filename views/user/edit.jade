@@ -1,0 +1,29 @@
+extends ../layouts/base
+
+block content
+    div#user-edit(style='width:90%;max-width:600px;margin:0 auto')
+        form(action='edit', method='post')
+            input(type='hidden', name='_csrf',        value=_csrf)
+
+            - // div
+            - //     p.item-name プロフィール画像
+            - //     input(type='radio', name='userImageType', value='facebook')
+            - //     facebookの画像を使う
+            - //     input(type='radio', name='userImageType', value='none')
+            - //     unknownmanアイコンを使う
+            - //     input(type='file',    name='userImageFile', accept='image/*')
+
+            // label
+                p.item-name ニックネーム
+                input(type='text', name='username', value=user.username, maxlength=20, required)
+            label
+                p.item-name 自分がやりたいこと、行きたいところ、欲しいものをタグ付けしよう!
+                input(type='text', name='tag', value=tagNames, placeholder='' ,data-role='tagsinput')
+            label
+                p.item-name 誰かに買ってもらうためにAmazonのウィッシュリストのURLを入力しよう!
+                input.full(type='text', name='wishListUrl', value= user.wishListUrl, placeholder='')
+
+            input.submit(type='submit', value='変更する')
+
+        a(href='/user/delete/' + user.userId, method='post') 退会する
+    script(data-main='/javascripts/main/user.js', src='/javascripts/lib/requirejs.js')

@@ -1,0 +1,5 @@
+block room
+    li.room.gp.mm
+        a(href=_helper.room.createRoomUrl(room.id))
+            div(data-like-id=room.likeData.likeId, data-updateDatetime= room.likeData.updateDatetime)
+                img(src!=_helper.image.imageUrl(room.ogImagePath, 150, 150, 'crop'), alt, width=150, height=150)

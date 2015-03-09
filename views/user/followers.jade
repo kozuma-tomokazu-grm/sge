@@ -1,0 +1,9 @@
+extends ../layouts/base
+
+block content
+  div#user
+    - each user in userList
+      div#user-info
+        a(href='/user/' + user.userId)
+          img.user-image-l(src=user.imagePath, height=50, width=50, alt)
+          span.user-name= user.username

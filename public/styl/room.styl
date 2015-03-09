@@ -1,0 +1,244 @@
+.room
+    margin-bottom:    25px
+
+    .room-img
+        position: relative
+
+        img
+            display:        block
+            max-width:    100%
+            max-height: 600px
+            min-height: 240px
+            margin:         0 auto
+
+        .like-out
+            position: absolute
+            right:        0
+            bottom:     0
+            padding:    6px
+
+            .like-count
+                border-width: 0 5px 5px 0
+                height:     28px
+                box-shadow:    2px 2px 5px rgba(0,0,0,.3)
+                line-height: 28px
+                border-radius: 3px
+                text-align: center
+                background: #ff7a3d
+                color:            #fff
+                cursor:    pointer
+
+                .heart
+                    height:             28px
+                    margin-right: .3em
+                    padding:            0 .4em 0
+                    border-radius: 3px
+                    font-size:        20px
+                    font-weight:    bold
+                    background:     rgba(0,0,0,.15)
+                .count
+                    height:            28px
+                    padding:         0 .4em 0 0
+                    font-size:     20px
+                    font-weight: bold
+        /*
+        .like-out
+            position: absolute
+            right:        0
+            bottom:     0
+            padding:    8px
+
+            .like-count
+                border-width: 0 5px 5px 0
+                height:     38px
+                box-shadow:    2px 2px 5px rgba(0,0,0,.3)
+                line-height: 38px
+                border-radius: 3px
+                text-align: center
+                background: #ff7a3d
+                color:            #fff
+                cursor:    pointer
+
+                .heart
+                    height:             38px
+                    margin-right: .3em
+                    padding:            0 .4em 0
+                    border-radius: 3px
+                    font-size:        28px
+                    font-weight:    bold
+                    background:     rgba(0,0,0,.15)
+                .wish
+                    height:             38px
+                    margin-right: .3em
+                    padding:            0 .4em 0
+                    border-radius: 3px
+                    font-size:        28px
+                    font-weight:    bold
+                    background:     rgba(0,0,0,.15)
+                .count
+                    height:            38px
+                    padding:         0 .4em 0 0
+                    font-size:     20px
+                    font-weight: bold
+        */
+        .like-count.active
+            box-shadow: 1px 1px 3px rgba(0,0,0,.2) inset
+            color:            #eee
+            background: #d51
+            cursor:         default
+
+    .meta
+        position: relative
+        padding:        5px
+        // border-radius: 0 0 0 4px;
+        border-radius: 5px;
+        background: #fff
+
+        .meta-one
+            padding-bottom: 5px
+            border-bottom:    1px solid #e3e3e3
+
+            .user-info
+                height: 30px
+
+                .user-name
+                    line-height: 30px
+                    vertical-align: top
+
+            .posted-time
+                line-height: 30px
+                vertical-align: top
+
+        .comments
+            padding-top:    5px
+            height:             14px
+            line-height:    14px
+
+            .picon.comment
+                height:             14px
+                padding-left: 16px
+                overflow:         hidden
+                background:     url(/images/icon/comment.png) no-repeat left center
+                background-size: 14px 14px
+
+#room
+    .user-image
+        position: absolute
+
+    .meta
+        min-height: 50px
+
+        .description
+            margin-left: 60px
+
+        .comment
+            margin-top:    10px
+            white-space: pre-line
+            word-wrap:     break-word
+
+    .comments
+        margin-top:     15px
+
+        #post-cooment
+            margin: 10px
+
+            textarea
+                box-sizing:         border-box
+                padding:                10px
+                border-radius:    4px
+                letter-spacing: 1px
+                color:                    #666
+
+            .submit
+                display:                block
+                width:                    90%
+                margin:                 10px auto
+                padding:                10px
+                border-radius:    4px
+                font-size:            14px
+                font-weight:        bold
+                background:         #333
+                color:                    #fff
+                cursor:                 pointer
+
+        .comments-list
+            position: relative
+            margin: 2.5em 5px 1em
+
+            .content
+                margin-left:    46px
+
+            .comment
+                position:             relative;
+                padding:                5px 10px 7px;
+                min-height:         40px;
+                border-radius:    5px;
+                margin-top:         10px
+                // background:         #FF8C60
+                background:         #fff
+                // color:                    #fff
+                color:              #737373
+                text-shadow:        0 0 1px rgba(0,0,0,0.3)
+
+                a
+                    display: inline
+                    margin-bottom: 5px
+                    // font-weight: bold
+                    color: #737373
+
+                p
+                    white-space:        pre-line
+                    word-wrap:            break-word
+
+            .comment:before
+                position: absolute;
+                display: block;
+                width: 0px;
+                height: 0px;
+                border-style: solid;            cursor:            default
+
+                content: "";
+                // border-color: transparent #FF8C60 transparent transparent;
+                border-color: transparent #fff transparent transparent;
+                left: -13px;
+                border-width: 0 13px 13px 0;
+                top: 14px;
+
+            .time
+                font-size: 9px;
+
+    .like-users
+        margin: 20px
+
+        ul
+            margin-top: 10px
+
+            li
+                display: inline-block
+    .edit-form
+        margin-top: 10px
+        text-align: right
+        
+        input
+            display:        inline
+            width:            auto
+            padding:        0 .5em
+            font-size:    9px
+            background: inherit
+            color:            #333        
+    .delete-form
+        // margin-top: 10px
+        text-align: right
+
+        input
+            display:        inline
+            width:            auto
+            padding:        0 .5em
+            font-size:    9px
+            background: inherit
+            color:            #333
+
+        .comment-delete
+            // color:            #F3F3F3
+            color:            #737373
+

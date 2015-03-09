@@ -1,0 +1,63 @@
+block room
+    div.col-md-4.col-lg-4
+        li.room.gp.mm(data-room-id=room.id, data-updateDatetime= room.date)
+            - if(room.ogImagePath)
+                div.room-img
+                    a(href=_helper.room.createRoomUrl(room.id))
+                        img(src=_helper.image.imageUrl(room.ogImagePath, 600, 470, 'crop'), alt)
+            div.meta
+                div.meta-one.gp
+                    div.user-info.fl
+                        a(href=_helper.user.createUserUrl(room.user.id))
+                            img.user-image-m(src=room.user.imagePath, alt)
+                            span.user-name.ds.mls
+                                = room.user.username
+                    div.posted-time.fr.mrs
+                        span.time
+                            = _helper.time.createDisplayTime(room.insertDatetime)
+                div.room-img
+                    div.like-out
+                        div.gp.js-room-like.like-count(data-room_id=room.id, class=(room.likeActive) ? "active": "", style='cursor: pointer;')
+                            // div.heart.fl ❤
+                            div.heart.fl Wish
+                            div.count.fl= room.likeCount
+                //p タイトル
+                p
+                    = room.title
+                - if (room.date)
+                    p 日時:
+                        = _helper.time.createDisplayTime(room.date)
+                - if (room.hour && room.hour != 0)
+                    p 時間:
+                        = room.hour
+                        span 時間
+                - if (room.money && room.money != '0')
+                    p 金額:
+                        = room.money
+                        span 円
+                - else 
+                    p 金額: 無料
+                - if (room.place)
+                    p.elps 場所:
+                        = room.place
+                - if (room.address)
+                    p.elps 住所:
+                        a(href='http://maps.google.co.jp/maps?q='+room.address, target='_blank')= room.address
+                        //    = room.address
+                - if (room.url)
+                    p.elps URL:
+                        a(href= room.url, target='_blank')= room.url
+
+                div.gp.comments
+                    div.fr
+                        a(href=_helper.room.createRoomUrl(room.id))
+                            i.icon.icon_s.icon_comment_kuro.mr-5
+                            = room.conmentCount
+
+                    p.comment.elps
+                        = room.content
+                            br
+                a(href=_helper.room.createRoomUrl(room.id))
+                    div(style='text-align:center') チケット発売中
+
+

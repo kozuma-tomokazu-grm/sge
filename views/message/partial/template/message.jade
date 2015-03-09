@@ -1,0 +1,21 @@
+script#template-message(type='text/template')
+    li(data-comment-id!='<%- messageId %>', data-update-time!='<%- updateDatetime %>', data-group-id!='<%- messageGroupId %>')
+        div.user-image
+            a(href!='/user/<%- fromUserId %>')
+                img.user-image-m(src!='<%- userImagePath %>', width=30, height=30, alt)
+        div.content
+            div.comment
+                a(href!='/user/<%- fromUserId %>')
+                    <%- username %>
+                p
+                    <%- message %>
+                <% if (delete_form) { %>
+                form.delete-form(action='/message/delete_message', method='post')
+                    input(type='hidden', name='_csrf', value!='<%- _csrf %>', required)
+                    input(type='hidden', name='messageId', value!='<%- messageId %>', required)
+                    input(type='hidden', name='messageGroupId', value!='<%- messageGroupId %>', required)
+                    input.submit.comment-delete.js-delete(type='submit', value='削除')
+                <% } %>
+                div.gp
+                    div.fr.mrs.time
+                        <%- formatUpdateDatetime %>

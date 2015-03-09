@@ -1,0 +1,21 @@
+extends ../layouts/base
+
+block content
+    div#user
+        ul.messageGroup-list
+            - each messageGroup in messageGroupList
+                li(data-update-time= messageGroup.updateDatetime, style='list-style:none;')
+                    div#user-info
+                        a(href='/message/' + messageGroup.messageGroupId)
+                            img.user-image-l(src=messageGroup.user.imagePath, height=50, width=50, alt)
+                            span.user-name= messageGroup.user.username
+                            - if (messageGroup.newMessageFlag)
+                                span.label.label-danger 新着
+                        form.inline(action='/message/block_user', method= 'post')
+                            input(type='hidden', name='_csrf', value=_csrf, required)
+                            input(type='hidden', name='toUserId', value= messageGroup.user.userId, required)
+                            input(type='submit', value='ブロック')
+                    hr
+            include template/messagebox
+        div.more-btn.js-pager もっと表示
+    script(data-main='/javascripts/main/messagebox.js', src='/javascripts/lib/requirejs.js')

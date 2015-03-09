@@ -1,0 +1,94 @@
+extends ../layouts/base
+
+block content
+    div#user
+        div#user-info(data-user_id=userData.user.userId)
+            a(href='http://www.facebook.com/'+ userData.user.facebookId)
+                img.user-image-l(src=userData.user.imagePath, height=50, width=50, alt)
+                span.user-name= userData.user.username
+            br
+            - if(_req.session.userId !== userData.user.userId)
+                - if(userData.isFollowing)
+                    span#follow.js-unfollow.label.label-info 話してみたい✖︎
+                - else
+                    span#follow.js-follow.label.label-primary 話してみたい
+                        input(type='hidden' id='csrf' value=_csrf)
+            - else
+                br
+                a.label.label-info(href='/user/' + userData.user.userId + '/following') 話してみたい人
+                    span(id='followCount')= userData.followCount
+                br
+                a.label.label-primary(href='/user/' + userData.user.userId + '/followers') あなたと話したい人
+                    span(id='followedCount')= userData.followedCount
+            br
+            span#message.label.label-success
+                - if (deleteFlag) 
+                    - if (blockFlag)
+                        form.inline(action='/message/unblock_user', method= 'post')
+                            input(type='hidden', name='toUserId', value= userData.user.userId, required)
+                            input(type='submit', value='ブロック解除')
+                    - else
+                        span プロックされています
+                - else 
+                    a(href='/message/' + messageGroupId, style='color:white') プライベートチャット
+            br
+            label
+                - if (tagNameList.length)
+                    span.label.label-danger やりたいこと、行きたいところ、欲しいもの
+            br
+            - if(_req.session.userId == userData.user.userId)
+                a.label.label-warning(href=userData.user.wishListUrl, target='_blank')
+                    span 自分が欲しいのもの
+                a.label.label-warning(href='/user/edit')
+                    span 編集
+            - else 
+                a.label.label-warning(href=userData.user.wishListUrl, target='_blank')
+                    span この人の欲しいのもの
+               
+            div
+                - each tagName in tagNameList
+                    a(href='/user/categorie/' + tagName)
+                        p.label.label-primary #{tagName}
+                - if(_req.session.userId == userData.user.userId)
+                    a.label.label-primary(href='/user/edit')
+                        span 編集
+
+        ul#user-tab
+            li(class=(userActiveTabName == 'photo') ? "active": "")
+                a#js-profile-tab-photo(href='/user/' + userData.user.userId)
+                    div.count= userData.photoCount
+                    span 投稿
+            li(class=(userActiveTabName == 'like') ? "active": "")
+                a#js-profile-tab-like(href='/user/' + userData.user.userId + '/like')
+                    div.count= userData.likeCount
+                    // span いいね
+                    span(style='font-size:12px') Wish
+            li(class=(userActiveTabName == 'comment') ? "active": "")
+                a#js-profile-tab-comment(href='/user/' + userData.user.userId + '/comment')
+                    div.count= userData.commentCount
+                    span コメント
+
+        - if(rooms.length > 0)
+            - if(userActiveTabName == 'like')
+                ul#rooms.like-rooms
+                    - each room in rooms
+                        include partial/room_likes
+                    include partial/template/room_like
+                div.btn.more-btn.js-pager 次を表示
+            - else
+                div.row.multi-columns-row
+                    ul#rooms.rooms
+                        - each room in rooms
+                            include partial/room
+                    - if(userActiveTabName == 'photo')
+                        include partial/template/room
+                        div.btn.more-btn.js-pager 次を表示
+                    - else if(userActiveTabName == 'comment')
+                        include partial/template/comment
+                        div.btn.more-btn.js-pager 次を表示
+    script(data-main='/javascripts/main/user.js', src='/javascripts/lib/requirejs.js')
+    script.
+        $(function() {
+            // リロードしたときにページの先頭を表示する
+            $('html,body').animate({ scrollTop: 0 }, '1');
+        });

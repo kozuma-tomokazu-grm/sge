@@ -1,0 +1,23 @@
+extends ../layouts/base
+
+block content
+    div#user
+        ul#userList
+            - each user in userList
+                div#user-info.user-info
+                    li#user-info(data-updateDatetime= user.updateDatetime, style='list-style-type:none;')
+                        a(href='/user/' + user.userId)
+                            img.user-image-l(src=user.imagePath, height=50, width=50, alt)
+                            span.user-name= user.username
+                            br
+                            - each tagName in user.tagNameList
+                                a(href='/user/categorie/' + tagName)
+                                    p.label.label-primary #{tagName}
+                        br
+                        - if (user.isFollowing)
+                            span.follow.js-unfollow.label.label-info(data-user_id=user.userId) 話してみたい✖︎
+                        - else
+                            span.follow.js-follow.label.label-primary(data-user_id=user.userId) 話してみたい
+            include template/userList
+    div.more-btn.js-pager もっと表示
+    script(data-main='/javascripts/main/user_list.js', src='/javascripts/lib/requirejs.js')

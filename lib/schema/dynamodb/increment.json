@@ -1,0 +1,19 @@
+{
+    "TableName": "increment",
+    "AttributeDefinitions": [
+        {
+            "AttributeName": "incrementKey",
+            "AttributeType": "S"
+        }
+    ],
+    "KeySchema": [
+        {
+            "AttributeName": "incrementKey",
+            "KeyType": "HASH"
+        }
+    ],
+    "ProvisionedThroughput": {
+        "ReadCapacityUnits": 1,
+        "WriteCapacityUnits": 1
+    }
+}
