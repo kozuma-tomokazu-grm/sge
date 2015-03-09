@@ -14,8 +14,8 @@ var flash = require('connect-flash');
 var mongo = require('socket.io-adapter-mongo');
 var MongoStore = require('connect-mongo')(express); //sessionストア用のDB
 var mongoStore = new MongoStore({
-    url: config.mongo_url.mongolab || config.mongo_url.mongolocal,
-    db: 'wishmatch_session_user'
+    url: 'mongodb://localhost/sge',
+    db: 'session_user'
 });
 
 var _ = require('underscore');
@@ -33,10 +33,10 @@ app.set('view engine', 'jade');
 // app.set('config', config);
 
 //cookie署名時のキー
-app.set('cookie secret key', app.get('config').cookie_secret_key);
+app.set('cookie secret key', 'sge');
 
 //store保存時のキー
-app.set('store secret key', app.get('config').store_secret_key);
+app.set('store secret key', 'sge');
 
 app.use(express.favicon(__dirname + '/public/favicon.ico'));
 if (config.debug) {
@@ -56,18 +56,6 @@ app.use(express.session({
         maxAge: 7 * 24 * 60 * 60 * 1000 // a week
     }
 }));
-
-// use filter
-app.use(
-    require("middlewares/express_filter")
-    .onError(function(error, req, res){
-        require('helpers/applicationHelper').responseError(res, new Error('invalid access'), 500)
-    })
-    .setRoot(__dirname)
-    .config(__dirname + '/config/filter_config.json')
-    .doFilter(app)
-);
-
 
 app.use(flash());
 
