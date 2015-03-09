@@ -32,7 +32,7 @@
     "superagent": "0.18.2",
     "underscore": "*",
     "util": "0.10.3",
-    "validator": "3.19.0",
+    "validator": "3.19.0"
   },
   "devDependencies": {
     "nodemon": "^1.2.0"
