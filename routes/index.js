@@ -66,7 +66,7 @@ exports.init = function(app){
         ], function(error, result) {
             console.log(result)
             var array = result.rankingCondition.split('=');
-            var rankiongConditionKey = array[0];
+            var rankingConditionKey = array[0];
             var rankingCondition = array[1];
 
             res.send(JSON.stringify({
@@ -74,7 +74,7 @@ exports.init = function(app){
                 data:  {
                     rankingId: result.rankingId,
                     rankingCondition: rankingCondition,
-                    rankiongConditionKey: rankiongConditionKey,
+                    rankingConditionKey: rankingConditionKey,
                     rankingOrder: result.rankingOrder
                 }
             }));
