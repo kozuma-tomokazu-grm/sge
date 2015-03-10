@@ -44,6 +44,32 @@ exports.init = function(app){
         });
     });
 
+    app.get('/getMyMap/:userId', function(req, res) {
+        async.waterfall([
+            function(callback) {
+                user2MapDao.getByUserId(req.param('userId'), callback);
+            },
+            function(user2map, callback) {
+                map2MapDao.getListByMapIdFrom(user2map.mapId, callback)
+            }
+        ], function(error, result) {
+
+            var maps = [];
+            var map2MapList = [];
+            _.each(result, function(map) {
+                map2MapList = [];
+                map2MapList.push(map.mapIdTo);
+                map2MapList.push(map.fromToMoveCost);
+                maps.push(map2MapList);
+            });
+
+            res.send(JSON.stringify({
+                result: true,
+                data:  maps
+            }));
+        });
+    });
+
     // getMap
     app.get('/getMap/:mapId', function(req, res) {
         async.parallel({
