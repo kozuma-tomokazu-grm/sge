@@ -11,12 +11,12 @@ var fs = require('fs');
 var http = require('http');
 var path = require('path');
 var flash = require('connect-flash');
-var mongo = require('socket.io-adapter-mongo');
-var MongoStore = require('connect-mongo')(express); //sessionストア用のDB
-var mongoStore = new MongoStore({
-    url: 'mongodb://localhost/sge',
-    db: 'session_user'
-});
+// var mongo = require('socket.io-adapter-mongo');
+// var MongoStore = require('connect-mongo')(express); //sessionストア用のDB
+// var mongoStore = new MongoStore({
+//     url: 'mongodb://localhost/sge',
+//     db: 'session_user'
+// });
 
 var _ = require('underscore');
 
@@ -49,13 +49,13 @@ app.use(express.methodOverride());
 app.use(express.multipart());
 app.use(express.cookieParser(app.get('cookie secret key')));
 
-app.use(express.session({
-    store: mongoStore,
-    key: app.get('store secret key'),
-    cookie: {
-        maxAge: 7 * 24 * 60 * 60 * 1000 // a week
-    }
-}));
+// app.use(express.session({
+//     store: mongoStore,
+//     key: app.get('store secret key'),
+//     cookie: {
+//         maxAge: 7 * 24 * 60 * 60 * 1000 // a week
+//     }
+// }));
 
 app.use(flash());
 
