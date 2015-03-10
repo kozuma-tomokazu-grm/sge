@@ -9,7 +9,6 @@
     "test": "NODE_ENV=development supervisor app.js"
   },
   "dependencies": {
-    "tsv":"*",
     "mysql":"*",
     "async": "*",
     "aws-sdk": "*",
