@@ -8,6 +8,7 @@ var _ = require('underscore');
 var validator = require('validator');
 
 // dao
+rankingDao = require('dao/rankingDao');
 mapDao = require('dao/mapDao');
 map2MapDao = require('dao/map2MapDao');
 map2TreasureDao = require('dao/map2TreasureDao');
@@ -39,6 +40,29 @@ exports.init = function(app){
                     actionPoint: result.user.userActionPoint,
                     mapId: result.user2map.mapId,
                     treasures: treasureIdList
+                }
+            }));
+        });
+    });
+
+    app.get('/getRankingCondition/:rankingId', function(req, res) {
+        async.waterfall([
+            function(callback) {
+                rankingDao.getByRankingId(req.param('rankingId'), callback);
+            }
+        ], function(error, result) {
+            console.log(result)
+            var array = result.rankingCondition.split('=');
+            var rankiongConditionKey = array[0];
+            var rankingCondition = array[1];
+
+            res.send(JSON.stringify({
+                result: true,
+                data:  {
+                    rankingId: result.rankingId,
+                    rankingCondition: rankingCondition,
+                    rankiongConditionKey: rankiongConditionKey,
+                    rankingOrder: result.rankingOrder
                 }
             }));
         });
