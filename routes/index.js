@@ -34,16 +34,21 @@ exports.init = function(app){
             user2map: function(callback) {
                 user2MapDao.getByUserId(req.param('userId'), callback);
             },
-            user2treasure: function(callback) {
-                user2TreasureDao.getByUserId(req.param('userId'), callback);
+            user2treasureList: function(callback) {
+                user2TreasureDao.getListByUserId(req.param('userId'), callback);
             },
             // map:
         }, function(error, result) {
-            result.user.mapId = result.user2map.mapId;
-            result.user.treasureId = result.user2treasure.treasureId;
+            var treasureIdList  = _.pluck(result.user2treasureList, 'treasureId');
             res.send(JSON.stringify({
                 result: true,
-                data: result.user
+                data: {
+                    userId: result.user.userId,
+                    createDate: result.user.userCreateDate,
+                    actionPoint: result.user.userActionPoint,
+                    mapId: result.user2map.mapId,
+                    treasures: treasureIdList
+                }
             }));
         });
     });
