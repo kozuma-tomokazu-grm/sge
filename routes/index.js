@@ -45,6 +45,19 @@ exports.init = function(app){
         });
     });
 
+    app.get('/listRankingCondition', function(req, res) {
+        async.waterfall([
+            function(callback) {
+                rankingDao.getAll(callback);
+            }
+        ], function(error, result) {
+            res.send(JSON.stringify({
+                result: true,
+                data:  result
+            }));
+        });
+    });
+
     app.get('/getRankingCondition/:rankingId', function(req, res) {
         async.waterfall([
             function(callback) {
