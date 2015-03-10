@@ -25,20 +25,8 @@ exports.init = function(app){
         res.send({key: 'value'});
     });
 
-    // getUserStatus
     app.get('/getUserStatus/:userId', function(req, res) {
-        async.parallel({
-            user: function(callback) {
-                userDao.getByUserId(req.param('userId'), callback);
-            },
-            user2map: function(callback) {
-                user2MapDao.getByUserId(req.param('userId'), callback);
-            },
-            user2treasureList: function(callback) {
-                user2TreasureDao.getListByUserId(req.param('userId'), callback);
-            },
-            // map:
-        }, function(error, result) {
+        getUserStatus(req.param('userId'), function(error, result) {
             var treasureIdList  = _.pluck(result.user2treasureList, 'treasureId');
             res.send(JSON.stringify({
                 result: true,
@@ -52,4 +40,18 @@ exports.init = function(app){
             }));
         });
     });
+}
+var getUserStatus = function(userId, callback) {
+    async.parallel({
+        user: function(callback) {
+            userDao.getByUserId(userId, callback);
+        },
+        user2map: function(callback) {
+            user2MapDao.getByUserId(userId, callback);
+        },
+        user2treasureList: function(callback) {
+            user2TreasureDao.getListByUserId(userId, callback);
+        },
+        // map:
+    }, callback);
 }
